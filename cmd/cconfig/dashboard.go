@@ -148,12 +148,17 @@ func createDashboardNode() error {
 	return errors.Trace(err)
 }
 
-func releaseDashboardNode() {
+func releaseDashboardNode() error {
 	zkPath := fmt.Sprintf("/zk/codis/db_%s/dashboard", globalEnv.ProductName())
+	if safeZkConn == nil {
+		zkBuilder := utils.NewConnBuilder(globalEnv.NewZkConn)
+		safeZkConn = zkBuilder.GetSafeConn()
+	}
 	if exists, _, _ := safeZkConn.Exists(zkPath); exists {
 		log.Infof("removing dashboard node")
-		safeZkConn.Delete(zkPath, 0)
+		return safeZkConn.Delete(zkPath, 0)
 	}
+	return nil
 }
 
 func runDashboard(addr string, httpLogFile string) {

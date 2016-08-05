@@ -89,6 +89,8 @@ func runCommand(cmd string, args []string) (err error) {
 		return errors.Trace(cmdProxy(argv))
 	case "slot":
 		return errors.Trace(cmdSlot(argv))
+	case "releasezk":
+		return errors.Trace(releaseDashboardNode())
 	}
 	return errors.Errorf("%s is not a valid command. See 'codis-config -h'", cmd)
 }

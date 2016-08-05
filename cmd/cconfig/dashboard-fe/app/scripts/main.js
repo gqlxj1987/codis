@@ -63,11 +63,11 @@ function($scope, $http, ProxyStatusFactory) {
     $scope.proxies = ProxyStatusFactory.query();
 
     $scope.setStatus = function (p, status) {
-        var text = ""
+        var text = "";
         if (status == "online") {
             text = "Do you want to set " + p.id + " online?";
         } else {
-            text = "Do you want to mark " + p.id + " offline? the proxy process will exit after you marked it offline"
+            text = "Do you want to mark " + p.id + " offline? the proxy process will exit after you marked it offline";
         }
         var sure = confirm(text);
         if (!sure) {
@@ -106,7 +106,7 @@ function($scope, $http, $timeout) {
         y : data
       });
       $scope.chartOps.series[0].data = seriesArray;
-    }
+    };
 
     $scope.refresh = function() {
         $http.get('http://localhost:18087/api/overview').success(function(succData) {
@@ -134,7 +134,7 @@ function($scope, $http, $timeout) {
             }
             refreshChart($scope.ops)
         });
-    }
+    };
     $scope.refresh();
     $scope.chartOps = {
         chart: {
@@ -162,7 +162,7 @@ function($scope, $http, $timeout) {
     };
 
     (function autoUpdate() {
-        $timeout(autoUpdate, 1000);
+        $timeout(autoUpdate, 5000);
         $scope.refresh();
     }());
 
@@ -349,7 +349,7 @@ function($scope, $http, $modal, $log, ServerGroupsFactory, ServerGroupFactory) {
 
     $scope.refresh = function() {
         $scope.server_groups = ServerGroupsFactory.query();
-    }
+    };
 
     // query server group
     $scope.server_groups = ServerGroupsFactory.query();
